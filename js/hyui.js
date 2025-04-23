@@ -232,13 +232,19 @@ $(function() {
     // 固定版頭
     var hh = $('.header').outerHeight(true),
     menuH = _menu.outerHeight(true);
-    $(window).bind("load scroll resize", function(e) {
+    var hh_temp = $(this).scrollTop();
+    $(window).bind("load scroll resize", function (e) {
         ww = _window.outerWidth();
         if (ww >= wwSmall && $(this).scrollTop() > hh - menuH) {
+            if (hh_temp - $(this).scrollTop() == 0) {
+                $('.header').css('margin-top', 0 - hh_temp);
+            } else {
+                $('.header').css('margin-top', hh_temp);
+            }
             hh = $('.header').outerHeight(true);
             menuH = _menu.outerHeight(true);
             $('.header').addClass('fixed');
-            $('.header').css('margin-top', menuH - hh);
+
             $('.main').css('margin-top', hh);
         } else {
             $('.header').removeClass('fixed');
